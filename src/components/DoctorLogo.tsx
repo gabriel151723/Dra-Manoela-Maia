@@ -12,7 +12,7 @@ export const DoctorLogo: React.FC<DoctorLogoProps> = ({
   showText = true,
 }) => {
   return (
-    <div 
+    <span 
       className={`inline-flex items-center justify-center shrink-0 select-none ${className}`}
       style={size ? { width: size, height: size } : undefined}
       title="Dra. Manoela Maia - Reabilitação Oral & Odontologia Estética"
@@ -90,6 +90,6 @@ export const DoctorLogo: React.FC<DoctorLogoProps> = ({
           </>
         )}
       </svg>
-    </div>
+    </span>
   );
 };
