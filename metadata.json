@@ -1,0 +1,6 @@
+{
+  "name": "Identifique | Estética Avançada & Harmonização",
+  "description": "Landing page de alta conversão para a clínica Identifique por Mano Maia em Salvador. Harmonização facial e corporal com agendamento direto no WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
