@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { DRA_MANOELA_PHOTO_DATA_URI } from '../data/doctorPhotoBase64';
-import { getImageFromIndexedDB } from '../utils/imageStorage';
+import React, { useState } from 'react';
+import { DRA_MANOELA_PHOTO_DATA_URI, DRA_MANOELA_ABOUT_PHOTO_DATA_URI } from '../data/doctorPhotoBase64';
 
 interface DoctorPhotoProps {
   className?: string;
@@ -15,53 +14,17 @@ export const DoctorPhoto: React.FC<DoctorPhotoProps> = ({
 }) => {
   const isAbout = variant === 'about';
   const isAvatar = variant === 'avatar';
-  const isHero = variant === 'hero';
 
-  // For 'about' variant, prioritize the second photo (Screenshot_20260928_123333_Chrome.jpg / dra_manoela_about.jpg)
-  const [imageSrc, setImageSrc] = useState<string>(() => {
-    if (typeof window !== 'undefined' && isAbout) {
-      const local = localStorage.getItem('dra_manoela_photo_about');
-      if (local) return local;
-      return '/dra_manoela_about.jpg';
-    }
-    return DRA_MANOELA_PHOTO_DATA_URI;
-  });
-
-  const [hasTriedFallback, setHasTriedFallback] = useState(false);
-
-  useEffect(() => {
-    let isMounted = true;
-    if (isAbout) {
-      getImageFromIndexedDB('dra_manoela_photo_about').then((saved) => {
-        if (isMounted && saved) {
-          setImageSrc(saved);
-        }
-      });
-    }
-
-    // Listen for custom photo updates dispatched from About.tsx
-    const handlePhotoUpdated = (e: CustomEvent<string>) => {
-      if (isAbout && e.detail) {
-        setImageSrc(e.detail);
-      }
-    };
-    window.addEventListener('dra_photo_about_updated' as any, handlePhotoUpdated as any);
-
-    return () => {
-      isMounted = false;
-      window.removeEventListener('dra_photo_about_updated' as any, handlePhotoUpdated as any);
-    };
-  }, [isAbout]);
+  // Reliable permanent embedded photos:
+  // variant === 'about' always receives the second photo (DRA_MANOELA_ABOUT_PHOTO_DATA_URI)
+  // variant === 'hero' (and others) receives the first photo (DRA_MANOELA_PHOTO_DATA_URI)
+  const [imageSrc, setImageSrc] = useState<string>(
+    isAbout ? DRA_MANOELA_ABOUT_PHOTO_DATA_URI : DRA_MANOELA_PHOTO_DATA_URI
+  );
 
   const handleError = () => {
-    if (isAbout && !hasTriedFallback) {
-      setHasTriedFallback(true);
-      // Try alternate public filename if available
-      setImageSrc('/Screenshot_20260928_123333_Chrome.jpg');
-    } else {
-      // Ultimate reliable fallback to original high-res URI
-      setImageSrc(DRA_MANOELA_PHOTO_DATA_URI);
-    }
+    // Guaranteed fallback to respective embedded data URI
+    setImageSrc(isAbout ? DRA_MANOELA_ABOUT_PHOTO_DATA_URI : DRA_MANOELA_PHOTO_DATA_URI);
   };
 
   return (
@@ -80,6 +43,7 @@ export const DoctorPhoto: React.FC<DoctorPhotoProps> = ({
         } transition-transform duration-700 hover:scale-105`}
         loading="eager"
         decoding="async"
+        referrerPolicy="no-referrer"
       />
 
       {/* Subtle luxury ambient grading overlay */}
@@ -89,3 +53,4 @@ export const DoctorPhoto: React.FC<DoctorPhotoProps> = ({
     </div>
   );
 };
+

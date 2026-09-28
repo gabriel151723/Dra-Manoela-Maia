@@ -20,7 +20,8 @@ export const Differentials: React.FC = () => {
       icon: Microscope,
       title: 'Planejamento Visagista 3D',
       description: 'Análise global da dinâmica do sorriso, terços faciais e pontos de sustentação antes de qualquer procedimento invasivo.',
-      imageSrc: '/visagismo_3d.jpg'
+      imageSrc: '/Digital_facial_analysis_on_tablet_2K_20260928122244.jpg',
+      fallbackSrc: '/visagismo_3d.jpg'
     },
     {
       id: 'produtos-originais',
@@ -28,7 +29,8 @@ export const Differentials: React.FC = () => {
       icon: ShieldCheck,
       title: '100% Produtos Originais',
       description: 'Utilização exclusiva das melhores marcas mundiais (Botox®, Juvederm®, Restylane®, Radiesse®) abertas na frente do paciente.',
-      imageSrc: '/produtos_originais.jpg'
+      imageSrc: '/Medical_vials_and_syringe_on_2K_20260928122227.jpg',
+      fallbackSrc: '/produtos_originais.jpg'
     },
     {
       id: 'odonto-medico-itaigara',
@@ -36,7 +38,8 @@ export const Differentials: React.FC = () => {
       icon: Building2,
       title: 'Odonto-Médico Itaigara',
       description: 'Localização privilegiada na Sala 703 do Complexo Odonto-Médico Itaigara, com estacionamento privativo e infraestrutura hospitalar.',
-      imageSrc: '/Itaigara Complexo.jpg'
+      imageSrc: '/000604.jpg',
+      fallbackSrc: '/Itaigara Complexo.jpg'
     },
     {
       id: 'pos-24h',
@@ -44,7 +47,8 @@ export const Differentials: React.FC = () => {
       icon: Stethoscope,
       title: 'Acompanhamento Pós 24h',
       description: 'Contato direto via WhatsApp para orientações pós-procedimento, retorno de revisão sem custos adicionais e segurança contínua.',
-      imageSrc: '/pos_24h.jpg'
+      imageSrc: '/pos_24h.jpg',
+      fallbackSrc: '/pos_24h.jpg'
     }
   ];
 
@@ -90,6 +94,7 @@ export const Differentials: React.FC = () => {
                     <PillarVisual
                       pillarId={pillar.id}
                       imageSrc={pillar.imageSrc}
+                      fallbackSrc={pillar.fallbackSrc}
                       title={pillar.title}
                     />
 
